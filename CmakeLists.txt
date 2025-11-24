@@ -1,0 +1,29 @@
+#需求的最低CMake版本
+Cmake_minimum_required(VERSION 3.12)
+
+#定义工程名称
+project(OpenGL)
+
+#设置C++标准
+set(CMAKE_CXX_STANDARD 17)
+
+#设置编译选项,开启调试模式否则就普通运行
+add_definitions(-DDEBUG)
+
+#包含头文件路径
+include_directories(
+	SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/include
+)
+
+link_directories(
+	SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/lib
+)
+
+#添加子目录
+add_subdirectory(wrapper)
+add_subdirectory(application) 
+
+#添加可执行文件
+add_executable(openglStudy "main.cpp" "glad.c")
+
+target_link_libraries(openglStudy  glfw3.lib wrapper APP)
